@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>smile</title>
+    <script src="js/aframe.min.js"></script>
+    <script src="js/aframe-gif-shader.min.js"></script>
+    <script src="js/aframe-gif-component.min.js"></script>
+</head>
+<body>
+    <a-scene>
+
+      <a-assets>
+
+        <img   id="img-1"   src="img/img-1.jpg">
+        <audio id="audio-1" src="audio/audio-1.aac"></audio>
+        <img   id="gif-1"   src="img/gif-1.gif">
+
+        <video id="video-2" src="video/video-2.mp4" autoplay="true"></video>
+        <audio id="audio-2" src="audio/audio-2.aac"></audio>
+        <img   id="gif-2"   src="img/gif-2.gif">
+
+        <video id="video-3" src="video/video-3.mp4" autoplay="true"></video>
+        <audio id="audio-3" src="audio/audio-3.aac"></audio>
+        <img   id="gif-3"   src="img/gif-3.gif">
+
+        <img   id="img-4"   src="img/img-4.jpg">
+        <audio id="audio-4" src="audio/audio-4.aac"></audio>
+        <img   id="gif-4"   src="img/gif-4.gif">
+
+        <img   id="img-5"   src="img/img-5.jpg">
+        <audio id="audio-5" src="audio/audio-5.aac"></audio>
+        <img   id="gif-5"   src="img/gif-5.gif">
+
+      </a-assets>
+
+      <a-sky color="#000"></a-sky>
+
+      <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double"></a-sphere>
+      <a-sphere position="0 2 -100" radius="5" side="double"></a-sphere>
+
+      <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif);" gif=""></a-entity>
+
+      <a-entity id="sound" position="0 1.5 0">
+        <a-entity sound="src: #audio-1; autoplay: true; volume: 3;"></a-entity>
+      </a-entity>
+
+      <a-camera wasd-controls-enabled="false">
+          <a-cursor id="cursor" color="red"></a-cursor>
+          <a-plane id="trigger" width="0" height=".01" position="0 -0.25 -.5" color="red"></a-plane>
+      </a-camera>
+
+      <!-- elements scene 1 -->
+        <!-- ... -->
+      <!-- elements scene 2 -->
+        <!-- ... -->
+      <!-- elements scene 3 -->
+        <!-- ... -->
+      <!-- elements scene 4 -->
+        <!-- ... -->
+      <!-- elements scene 5 -->
+        <!-- ... -->
+
+    </a-scene>
+
+    <script>
+
+      //SETTINGS
+
+      var currentScene = 0;
+
+      var assets = {
+        escene1 : {
+          esceneBg:         '#img-1',
+          esceneSound:      '#audio-1',
+          actionImg:        'gif-1',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
+        escene2 : {
+          esceneBg:         'video/video-2.mp4',
+          esceneSound:      '#audio-2',
+          actionImg:        'gif-2',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
+        escene3 : {
+          esceneBg:         'video/video-3.mp4',
+          esceneSound:      '#audio-3',
+          actionImg:        'gif-3',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
+        escene4 : {
+          esceneBg:         '#img-4',
+          esceneSound:      '#audio-4',
+          actionImg:        'gif-4',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
+        escene5 : {
+          esceneBg:         '#img-5',
+          esceneSound:      '#audio-5',
+          actionImg:        'gif-5',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
+        key: function(n) {
+            return this[Object.keys(this)[n]];
+        }
+      };
+
+      var indexLastScene = 4;
+      var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="1">';
+
+      // APP INIT
+      (function(){
+        console.log('app init');
+        console.log('you are in escene number: ' + (currentScene + 1));
+        document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: '#' + assets.key(1).esceneBg });
+      })();
+
+      // ENABLE GO TO NEXT ESCENE
+      function enableNext() {
+
+        if( currentScene < indexLastScene) {
+          document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: '#' + assets.key(currentScene + 1).esceneBg });
+          action.setAttribute('position', { x: assets.key(currentScene).actionPosition.x, y: assets.key(currentScene).actionPosition.y, z: assets.key(currentScene).actionPosition.z });
+          ++currentScene;
+          console.log('enable go to escene number: ' + (currentScene + 1));
+        } else {
+          console.log('end');
+        }
+      }
+
+      // GO TO NEXT ESCENE
+      function goNextScene() {
+        console.log('you are in escene number: ' + (currentScene + 1));
+
+        document.querySelectorAll('a-sphere')[0].classList.toggle("sphereActive");
+        document.querySelectorAll('a-sphere')[1].classList.toggle("sphereActive");
+
+        action.setAttribute('position', { y: -100 });
+
+        document.querySelector('a-sphere:not(.sphereActive)').setAttribute('position', { x: 0, y: 2, z: 100 });
+
+        document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
+        document.querySelector('.sphereActive').setAttribute('material', { src: assets.key(currentScene).esceneBg });
+        document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneSound} );
+        document.querySelector('#sound a-entity').components.sound.playSound();
+        action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
+      }
+
+      //EVENTS
+      sound.addEventListener('sound-ended', enableNext, false);
+      // action.addEventListener('click', goNextScene, false);
+      trigger.addEventListener('animationend', goNextScene, false);
+
+      action.onmouseenter = function (e) {
+        trigger.innerHTML = triggerAnimation;
+      };
+      action.onmouseleave = function (e) {
+        trigger.innerHTML = '';
+        trigger.setAttribute('width', 0);
+      };
+
+    </script>
+</body>
+
+</html>
