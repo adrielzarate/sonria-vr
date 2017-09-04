@@ -13,6 +13,18 @@
 
       <a-assets>
 
+
+        <img   id="intro-msg-1"   src="img/intro-msg-1.jpg">
+        <img   id="headphones"   src="img/headphones.png">
+
+        <img   id="intro-msg-2"   src="img/intro-msg-2.jpg">
+        <img   id="cardboard"   src="img/cardboard.png">
+
+        <img   id="intro-msg-3"   src="img/intro-msg-3.jpg">
+        <img   id="rotation"   src="img/rotation.png">
+
+        <img   id="poster"   src="img/poster.jpg">
+
         <img   id="img-1"   src="img/img-1.jpg">
         <audio id="audio-1" src="audio/audio-1.aac"></audio>
         <img   id="gif-1"   src="img/gif-1.gif">
@@ -37,19 +49,68 @@
 
       <a-sky color="#000"></a-sky>
 
-      <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double"></a-sphere>
-      <a-sphere position="0 2 -100" radius="5" side="double"></a-sphere>
+      <a-camera wasd-controls-enabled="false">
+          <a-cursor id="cursor" color="red"></a-cursor>
+          <a-plane id="trigger" width="0" height=".01" position="0 -0.25 -.5" color="red"></a-plane>
+
+          <!-- intro -->
+          <a-image src="#headphones" opacity="0"  position="0 0 -6">
+            <a-animation attribute="opacity" from="0" to="1" begin="0" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="5000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="10000" to="false"></a-animation>
+            <a-animation attribute="rotation" dur="5000" fill="forwards" to="0 360 0" repeat="2"></a-animation>
+          </a-image>
+          <a-image src="#cardboard" visibiity="false" opacity="0"  position="0 0 -6">
+            <a-animation attribute="visible" begin="10000" to="true"></a-animation>
+            <a-animation attribute="opacity" from="0" to="1" begin="10000" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="15000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="20000" to="false"></a-animation>
+            <a-animation attribute="rotation" begin="10000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
+          </a-image>
+          <a-image src="#rotation" visibiity="false" opacity="0"  position="0 0 -6">
+            <a-animation attribute="visible" begin="20000" to="true"></a-animation>
+            <a-animation attribute="opacity" from="0" to="1" begin="20000" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="25000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="30000"   to="false"></a-animation>
+            <a-animation attribute="rotation" begin="20000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
+          </a-image>
+          <!-- Ponete auriculares para una mejor experiencia -->
+          <a-plane src="#intro-msg-1" height="0.7" width="6" opacity="0" visibiity="false" color="white" position=".12 1 -6">
+            <a-animation attribute="opacity" from="0" to="1" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="5000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="10000" to="false"></a-animation>
+          </a-plane>
+          <!-- Coloca tu teléfono en el Cardboard -->
+          <a-plane src="#intro-msg-2" height="0.7" width="6" opacity="0" visibiity="false" color="white" position=".12 1 -6">
+            <a-animation attribute="visible" begin="10000" to="true"></a-animation>
+            <a-animation attribute="opacity" from="0" to="1" begin="10000" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="15000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="20000" to="false"></a-animation>
+          </a-plane>
+          <!-- Vas a poder moverte libremente todo el tiempo -->
+          <a-plane src="#intro-msg-3" height="0.7" width="6" visibiity="false" opacity="0" color="white" position=".12 1 -6">
+            <a-animation attribute="visible" begin="20000" to="true"></a-animation>
+            <a-animation attribute="opacity" from="0" to="1" begin="20000" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="25000" dur="5000"></a-animation>
+            <a-animation attribute="visible" begin="30000" to="false"></a-animation>
+          </a-plane>
+          <a-plane src="#poster" opacity="0" visibility="false" width="5" height="2.8" position="0 0 -3">
+            <a-animation attribute="opacity" from="0" to="1" begin="30000" dur="5000"></a-animation>
+            <a-animation attribute="opacity" from="1" to="0" begin="35000" dur="5000"></a-animation>
+            <a-animation id="start" attribute="visible" begin="40000" to="false"></a-animation>
+          </a-plane>
+          <!-- intro end -->
+
+      </a-camera>
+
+      <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false"></a-sphere>
+      <a-sphere position="0 2 -100" radius="5" side="double" visible="false"></a-sphere>
 
       <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif);" gif=""></a-entity>
 
       <a-entity id="sound" position="0 1.5 0">
-        <a-entity sound="src: #audio-1; autoplay: true; volume: 3;"></a-entity>
+        <a-entity sound="src: #audio-1; volume: 3;"></a-entity>
       </a-entity>
-
-      <a-camera wasd-controls-enabled="false">
-          <a-cursor id="cursor" color="red"></a-cursor>
-          <a-plane id="trigger" width="0" height=".01" position="0 -0.25 -.5" color="red"></a-plane>
-      </a-camera>
 
       <!-- elements scene 1 -->
         <!-- ... -->
@@ -67,7 +128,6 @@
     <script>
 
       //SETTINGS
-
       var currentScene = 0;
 
       var assets = {
@@ -101,6 +161,12 @@
           actionImg:        'gif-5',
           actionPosition:   { x: 0, y: 1.5, z: -1 }
         },
+        escene6 : {
+          esceneBg:         '',
+          esceneSound:      '',
+          actionImg:        'creditos',
+          actionPosition:   { x: 0, y: 1.5, z: -1 }
+        },
         key: function(n) {
             return this[Object.keys(this)[n]];
         }
@@ -110,11 +176,19 @@
       var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="1">';
 
       // APP INIT
-      (function(){
+      (function() {
         console.log('app init');
+        // console.log('you are in escene number: ' + (currentScene + 1));
+        // document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: '#' + assets.key(1).esceneBg });
+      })();
+
+      function init() {
         console.log('you are in escene number: ' + (currentScene + 1));
         document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: '#' + assets.key(1).esceneBg });
-      })();
+        document.querySelectorAll('a-sphere')[0].setAttribute('visible', 'true');
+        document.querySelectorAll('a-sphere')[1].setAttribute('visible', 'true');
+        document.querySelector('#sound a-entity').components.sound.playSound();
+      }
 
       // ENABLE GO TO NEXT ESCENE
       function enableNext() {
@@ -142,12 +216,14 @@
 
         document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
         document.querySelector('.sphereActive').setAttribute('material', { src: assets.key(currentScene).esceneBg });
+        document.querySelector('.sphereActive').play();
         document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneSound} );
         document.querySelector('#sound a-entity').components.sound.playSound();
         action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
       }
 
       //EVENTS
+      start.addEventListener('animationend', init, false);
       sound.addEventListener('sound-ended', enableNext, false);
       // action.addEventListener('click', goNextScene, false);
       trigger.addEventListener('animationend', goNextScene, false);
