@@ -7,6 +7,7 @@
     <script src="js/aframe.min.js"></script>
     <script src="js/aframe-gif-shader.min.js"></script>
     <script src="js/aframe-gif-component.min.js"></script>
+    <script src="js/aframe-vid-shader.min.js"></script>
 </head>
 <body>
     <a-scene>
@@ -29,11 +30,11 @@
         <audio id="audio-1" src="audio/audio-1.aac"></audio>
         <img   id="gif-1"   src="img/gif-1.gif">
 
-        <video id="video-2" src="video/video-2.mp4" autoplay="true"></video>
+        <video id="video-2" src="video/video-2.mp4" autoplay="false"></video>
         <audio id="audio-2" src="audio/audio-2.aac"></audio>
         <img   id="gif-2"   src="img/gif-2.gif">
 
-        <video id="video-3" src="video/video-3.mp4" autoplay="true"></video>
+        <video id="video-3" src="video/video-3.mp4" autoplay="false"></video>
         <audio id="audio-3" src="audio/audio-3.aac"></audio>
         <img   id="gif-3"   src="img/gif-3.gif">
 
@@ -44,6 +45,8 @@
         <img   id="img-5"   src="img/img-5.jpg">
         <audio id="audio-5" src="audio/audio-5.aac"></audio>
         <img   id="gif-5"   src="img/gif-5.gif">
+
+        <!-- <img   id="credits"   src="img/credits.jpg"> -->
 
       </a-assets>
 
@@ -103,8 +106,11 @@
 
       </a-camera>
 
-      <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false"></a-sphere>
+      <!-- <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #video-2" side="double" visible="false"></a-sphere> -->
+      <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #video-2" side="double"></a-sphere>
       <a-sphere position="0 2 -100" radius="5" side="double" visible="false"></a-sphere>
+
+      <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;"></a-entity>
 
       <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif);" gif=""></a-entity>
 
@@ -164,7 +170,7 @@
         escene6 : {
           esceneBg:         '',
           esceneSound:      '',
-          actionImg:        'creditos',
+          actionImg:        '#credits',
           actionPosition:   { x: 0, y: 1.5, z: -1 }
         },
         key: function(n) {
@@ -216,7 +222,7 @@
 
         document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
         document.querySelector('.sphereActive').setAttribute('material', { src: assets.key(currentScene).esceneBg });
-        document.querySelector('.sphereActive').play();
+        // document.querySelector('.sphereActive').play();
         document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneSound} );
         document.querySelector('#sound a-entity').components.sound.playSound();
         action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
@@ -225,16 +231,23 @@
       //EVENTS
       start.addEventListener('animationend', init, false);
       sound.addEventListener('sound-ended', enableNext, false);
-      // action.addEventListener('click', goNextScene, false);
+      action.addEventListener('click', goNextScene, false);
       trigger.addEventListener('animationend', goNextScene, false);
 
-      action.onmouseenter = function (e) {
-        trigger.innerHTML = triggerAnimation;
-      };
-      action.onmouseleave = function (e) {
-        trigger.innerHTML = '';
-        trigger.setAttribute('width', 0);
-      };
+      box.addEventListener('click', function(){
+        document.querySelector('.sphereActive').components.material.pause()
+            // var el = document.querySelector('.sphereActive');
+            // var material = Object.assign({}, el.getAttribute('material'));
+            // material.pause = !material.pause;
+        console.log('hola');
+      }, false);
+      // action.onmouseenter = function (e) {
+      //   trigger.innerHTML = triggerAnimation;
+      // };
+      // action.onmouseleave = function (e) {
+      //   trigger.innerHTML = '';
+      //   trigger.setAttribute('width', 0);
+      // };
 
     </script>
 </body>

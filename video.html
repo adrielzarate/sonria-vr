@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>smile</title>
+    <meta name="description" content="360 Video — A-Frame">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <style>
+    html {
+        position: inherit !important;
+    }
+
+    .buttons {
+        position: absolute;
+        z-index: 2;
+        right: 0;
+        top: 0;
+        text-align: right;
+        height: 0;
+    }
+
+    .buttons button {
+        display: inline-block;
+        border: none;
+        padding: 1em;
+        margin: 1em 1em 0 0;
+        background: gray;
+        color: white;
+        font: 14px monospace;
+        text-decoration: none;
+    }
+
+    .buttons button:active {
+        background: #333;
+    }
+
+    .spacer {
+        position: relative;
+        pointer-events: none;
+        height: 100%;
+    }
+
+    .spacer2 {
+        position: relative;
+        pointer-events: none;
+        height: 1px;
+    }
+
+    body[data-vr="true"] .novr {
+        display: none;
+    }
+    </style>
+    <script src="js/aframe.min.js"></script>
+    <script src="js/aframe-gif-shader.min.js"></script>
+    <script src="js/aframe-gif-component.min.js"></script>
+    <script src="js/aframe-vid-shader.min.js"></script>
+</head>
+
+<body>
+
+    <a-scene>
+
+        <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;">
+            <!-- <a-animation id="start" attribute="position" from="0 1 -2" to="0 2 -2" dur="3000"></a-animation> -->
+        </a-entity>
+
+        <a-assets>
+            <video id="video-2" src="video/video-2.mp4"></video>
+        </a-assets>
+
+        <a-entity id="video" geometry="primitive:sphere;radius:5;" position="0 2 0" material="shader:video;src:#video-2;side:double;" side="double"></a-entity>
+
+        <a-camera wasd-controls-enabled="false">
+          <a-cursor id="cursor" color="red"></a-cursor>
+        </a-camera>
+
+    </a-scene>
+
+    <div class="buttons novr">
+      <button id="aBtn">toggle playback</button>
+    </div>
+
+    <!--
+    <a-scene>
+
+        <a-assets>
+            <video id="video-2" src="video/video-2.mp4" ></video>
+        </a-assets>
+
+        <a-sphere id="sphere" class="sphereActive" position="0 2 0" radius="5" material="src: #video-2" side="double"></a-sphere>
+
+        <a-camera wasd-controls-enabled="false">
+          <a-cursor id="cursor" color="red"></a-cursor>
+        </a-camera>
+
+    </a-scene>
+    -->
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+
+    <script>
+        function togglePlayback() {
+            var el = document.getElementById('video');
+            var material = Object.assign({}, el.getAttribute('material'));
+            material.pause = !material.pause;
+            el.setAttribute('material', material);
+            console.log('end');
+        }
+        togglePlayback();
+        box.onmouseenter = function (e) {
+            console.log('a');
+            // togglePlayback();
+            $('#aBtn').click();
+        };
+        aBtn.addEventListener('click',togglePlayback);
+    </script>
+
+</body>
+
+</html>
