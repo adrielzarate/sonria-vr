@@ -4,70 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <title>smile</title>
-    <meta name="description" content="360 Video — A-Frame">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
     <style>
-    html {
-        position: inherit !important;
-    }
+        html {
+            position: inherit !important;
+        }
 
-    .buttons {
-        position: absolute;
-        z-index: 2;
-        right: 0;
-        top: 0;
-        text-align: right;
-        height: 0;
-    }
+        .buttons {
+            position: absolute;
+            z-index: 2;
+            right: 0;
+            top: 0;
+            text-align: right;
+            height: 0;
+        }
 
-    .buttons button {
-        display: inline-block;
-        border: none;
-        padding: 1em;
-        margin: 1em 1em 0 0;
-        background: gray;
-        color: white;
-        font: 14px monospace;
-        text-decoration: none;
-    }
+        .buttons button {
+            display: inline-block;
+            border: none;
+            padding: 1em;
+            margin: 1em 1em 0 0;
+            background: gray;
+            color: white;
+            font: 14px monospace;
+            text-decoration: none;
+        }
 
-    .buttons button:active {
-        background: #333;
-    }
+        .buttons button:active {
+            background: #333;
+        }
 
-    .spacer {
-        position: relative;
-        pointer-events: none;
-        height: 100%;
-    }
+        .spacer {
+            position: relative;
+            pointer-events: none;
+            height: 100%;
+        }
 
-    .spacer2 {
-        position: relative;
-        pointer-events: none;
-        height: 1px;
-    }
+        .spacer2 {
+            position: relative;
+            pointer-events: none;
+            height: 1px;
+        }
 
-    body[data-vr="true"] .novr {
-        display: none;
-    }
+        body[data-vr="true"] .novr {
+            display: none;
+        }
     </style>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
     <script src="js/aframe.min.js"></script>
-    <script src="js/aframe-gif-shader.min.js"></script>
-    <script src="js/aframe-gif-component.min.js"></script>
+
     <script src="js/aframe-vid-shader.min.js"></script>
+    <script src="js/aframe-preloader-component.js"></script>
 </head>
 
 <body>
 
-    <a-scene>
+    <div id="preloaderModal" class="modal instructions-modal" tabindex="-1" role="dialog" style="display: none;">
+        <div class="modal-dialog modal-dialog__full" role="document">
+            <div class="modal-content vertical-align text-center">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <i class="preloader-modal__ok fa fa-check fa-5x text-success" aria-hidden="true"></i>
+                            <i class="preloader-modal__spinner fa fa-cog fa-spin fa-5x fa-fw text-muted" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <span class="progress-label">Loading 0%</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <button type="button" class="btn btn-default clearfix" data-dismiss="modal">Start</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;">
-            <!-- <a-animation id="start" attribute="position" from="0 1 -2" to="0 2 -2" dur="3000"></a-animation> -->
-        </a-entity>
+    <a-scene preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloaderModal; bar: #preloaderModal .progress-bar; label: #preloaderModal .progress-label; labelText: Loading {0}%; slowLoad: false; doneLabelText: Press Start To Play!;">
 
         <a-assets>
             <video id="video-2" src="video/video-2.mp4"></video>
         </a-assets>
+
+        <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;"></a-entity>
 
         <a-entity id="video" geometry="primitive:sphere;radius:5;" position="0 2 0" material="shader:video;src:#video-2;side:double;" side="double"></a-entity>
 
@@ -81,22 +111,6 @@
       <button id="aBtn">toggle playback</button>
     </div>
 
-    <!--
-    <a-scene>
-
-        <a-assets>
-            <video id="video-2" src="video/video-2.mp4" ></video>
-        </a-assets>
-
-        <a-sphere id="sphere" class="sphereActive" position="0 2 0" radius="5" material="src: #video-2" side="double"></a-sphere>
-
-        <a-camera wasd-controls-enabled="false">
-          <a-cursor id="cursor" color="red"></a-cursor>
-        </a-camera>
-
-    </a-scene>
-    -->
-
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
     <script>
@@ -108,12 +122,17 @@
             console.log('end');
         }
         togglePlayback();
-        box.onmouseenter = function (e) {
-            console.log('a');
-            // togglePlayback();
-            $('#aBtn').click();
-        };
-        aBtn.addEventListener('click',togglePlayback);
+
+        // box.onmouseenter = function (e) {
+        //     togglePlayback();
+        // };
+
+        // aBtn.addEventListener('click',togglePlayback);
+
+        preloaderModal.querySelector('button').addEventListener('click', function(){
+            togglePlayback();
+        }, false);
+
     </script>
 
 </body>
