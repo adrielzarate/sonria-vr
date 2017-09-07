@@ -12,14 +12,15 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
-    <script src="js/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
 
     <script src="js/aframe-gif-shader.min.js"></script>
-
     <script src="js/aframe-gif-component.min.js"></script>
+
     <script src="js/aframe-vid-shader.min.js"></script>
 
-    <script src="js/aframe-preloader-component.js"></script>
+    <script src="js/aframe-preloader-component.min.js"></script>
+
 </head>
 
 <body>
@@ -28,7 +29,7 @@
         <div class="modal-dialog modal-dialog__full" role="document">
             <div class="modal-content vertical-align text-center">
                 <div class="col-md-6 col-md-offset-3">
-                    <div class="row">
+                    <div class="row" style="opacity:0">
                         <div class="col-xs-12">
                             <i class="preloader-modal__ok fa fa-check fa-5x text-success" aria-hidden="true"></i>
                             <i class="preloader-modal__spinner fa fa-cog fa-spin fa-5x fa-fw text-muted" aria-hidden="true"></i>
@@ -49,42 +50,42 @@
         </div>
     </div>
 
-    <a-scene preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloaderModal; bar: #preloaderModal .progress-bar; label: #preloaderModal .progress-label; labelText: Loading {0}%; slowLoad: false; doneLabelText: Press Start To Play!;">
+    <a-scene preloader="autoInject: false; clickToClose: true; autoClose: true; target: #preloaderModal; bar: #preloaderModal .progress-bar; label: #preloaderModal .progress-label; labelText: Loading {0}%; slowLoad: true; doneLabelText: Press Start To Play!;">
 
         <a-assets>
 
-            <img id="intro-msg-1" src="img/intro-msg-1.jpg" preload="auto">
-            <img id="headphones" src="img/headphones.png" preload="auto">
+            <img id="intro-msg-1" src="img/intro-msg-1.jpg" crossorigin="anonymous" preload="true">
+            <img id="headphones" src="img/headphones.png" crossorigin="anonymous" preload="true">
 
-            <img id="intro-msg-2" src="img/intro-msg-2.jpg" preload="auto">
-            <img id="cardboard" src="img/cardboard.png" preload="auto">
+            <img id="intro-msg-2" src="img/intro-msg-2.jpg" crossorigin="anonymous" preload="true">
+            <img id="cardboard" src="img/cardboard.png" crossorigin="anonymous" preload="true">
 
-            <img id="intro-msg-3" src="img/intro-msg-3.jpg" preload="auto">
-            <img id="rotation" src="img/rotation.png" preload="auto">
+            <img id="intro-msg-3" src="img/intro-msg-3.jpg" crossorigin="anonymous" preload="true">
+            <img id="rotation" src="img/rotation.png" crossorigin="anonymous" preload="true">
 
-            <img id="poster" src="img/poster.jpg" preload="auto">
+            <img id="poster" src="img/poster.jpg" crossorigin="anonymous" preload="true">
 
-            <img id="img-1" src="img/img-1.jpg" preload="auto">
-            <audio id="audio-1" src="audio/test.mp3"></audio>
-            <img id="gif-1" src="img/gif-1.gif" preload="auto">
+            <img   id="img-1" src="img/img-1.jpg" crossorigin="anonymous" preload="true">
+            <audio id="audio-1" src="audio/audio-1.mp3" crossorigin="anonymous" preload="true"></audio>
+            <img   id="gif-1" src="img/gif-1.gif" crossorigin="anonymous" preload="true">
 
-            <video id="video-2" src="video/video-2.mp4"></video>
-            <audio id="audio-2" src="audio/test.mp3"></audio>
-            <img id="gif-2" src="img/gif-2.gif" preload="auto">
+            <video id="video-2" src="video/video-2.mp4" loop="true" crossorigin="anonymous" preload="true"></video>
+            <audio id="audio-2" src="audio/audio-2.mp3" crossorigin="anonymous" preload="true"></audio>
+            <img   id="gif-2" src="img/gif-2.gif" crossorigin="anonymous" preload="true">
 
-            <video id="video-3" src="video/video-3.mp4"></video>
-            <audio id="audio-3" src="audio/test.mp3"></audio>
-            <img id="gif-3" src="img/gif-3.gif" preload="auto">
+            <video id="video-3" src="video/video-3.mp4" loop="true" crossorigin="anonymous" preload="true"></video>
+            <audio id="audio-3" src="audio/audio-3.mp3" crossorigin="anonymous" preload="true"></audio>
+            <img   id="gif-3" src="img/gif-3.gif" crossorigin="anonymous" preload="true">
 
-            <img id="img-4" src="img/img-4.jpg" preload="auto">
-            <audio id="audio-4" src="audio/test.mp3"></audio>
-            <img id="gif-4" src="img/gif-4.gif" preload="auto">
+            <img   id="img-4" src="img/img-4.jpg" crossorigin="anonymous" preload="true">
+            <audio id="audio-4" src="audio/audio-4.mp3" crossorigin="anonymous" preload="true"></audio>
+            <img   id="gif-4" src="img/gif-4.gif" crossorigin="anonymous" preload="true">
 
-            <img id="img-5" src="img/img-5.jpg" preload="auto">
-            <audio id="audio-5" src="audio/test.mp3"></audio>
-            <img id="gif-5" src="img/gif-5.gif" preload="auto">
+            <img   id="img-5" src="img/img-5.jpg" crossorigin="anonymous" preload="true">
+            <audio id="audio-5" src="audio/audio-5.mp3" crossorigin="anonymous" preload="true"></audio>
+            <img   id="gif-5" src="img/gif-5.gif" crossorigin="anonymous" preload="true">
 
-            <!-- <img   id="credits"   src="img/credits.jpg"> -->
+            <img   id="credits" src="img/credits.jpg" crossorigin="anonymous" preload="true">
 
         </a-assets>
 
@@ -95,58 +96,53 @@
             <a-plane id="trigger" width="0" height=".01" position="0 -0.25 -.5" color="red"></a-plane>
             <!-- intro -->
             <a-image src="#headphones" opacity="0" position="0 0 -6">
-                <a-animation attribute="opacity" from="0" to="1" begin="0" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="5000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="10000" to="false"></a-animation>
+                <a-animation attribute="opacity" from="0" to="1" delay="0" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="5000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="10000" to="false"></a-animation>
                 <a-animation attribute="rotation" dur="5000" fill="forwards" to="0 360 0" repeat="2"></a-animation>
             </a-image>
-            <a-image src="#cardboard" visibiity="false" opacity="0" position="0 0 -6">
-                <a-animation attribute="visible" begin="10000" to="true"></a-animation>
-                <a-animation attribute="opacity" from="0" to="1" begin="10000" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="15000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="20000" to="false"></a-animation>
-                <a-animation attribute="rotation" begin="10000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
+            <a-image src="#cardboard" opacity="0" position="0 0 -6">
+                <a-animation attribute="visible" delay="10000" to="true"></a-animation>
+                <a-animation attribute="opacity" from="0" to="1" delay="10000" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="15000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="20000" to="false"></a-animation>
+                <a-animation attribute="rotation" delay="10000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
             </a-image>
-            <a-image src="#rotation" visibiity="false" opacity="0" position="0 0 -6">
-                <a-animation attribute="visible" begin="20000" to="true"></a-animation>
-                <a-animation attribute="opacity" from="0" to="1" begin="20000" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="25000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="30000" to="false"></a-animation>
-                <a-animation attribute="rotation" begin="20000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
+            <a-image src="#rotation" opacity="0" position="0 0 -6">
+                <a-animation attribute="visible" delay="20000" to="true"></a-animation>
+                <a-animation attribute="opacity" from="0" to="1" delay="20000" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="25000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="30000" to="false"></a-animation>
+                <a-animation attribute="rotation" delay="20000" dur="5000" fill="forwards" to="0 360 0" repeat="3"></a-animation>
             </a-image>
-            <!-- Ponete auriculares para una mejor experiencia -->
-            <a-plane src="#intro-msg-1" height="0.7" width="6" opacity="0" visibiity="false" color="white" position=".12 1 -6">
+            <a-plane src="#intro-msg-1" height="0.7" width="6" opacity="0" color="white" position=".12 1 -6">
                 <a-animation attribute="opacity" from="0" to="1" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="5000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="10000" to="false"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="5000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="10000" to="false"></a-animation>
             </a-plane>
-            <!-- Coloca tu teléfono en el Cardboard -->
-            <a-plane src="#intro-msg-2" height="0.7" width="6" opacity="0" visibiity="false" color="white" position=".12 1 -6">
-                <a-animation attribute="visible" begin="10000" to="true"></a-animation>
-                <a-animation attribute="opacity" from="0" to="1" begin="10000" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="15000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="20000" to="false"></a-animation>
+            <a-plane src="#intro-msg-2" height="0.7" width="6" opacity="0" color="white" position=".12 1 -6">
+                <a-animation attribute="visible" delay="10000" to="true"></a-animation>
+                <a-animation attribute="opacity" from="0" to="1" delay="10000" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="15000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="20000" to="false"></a-animation>
             </a-plane>
-            <!-- Vas a poder moverte libremente todo el tiempo -->
-            <a-plane src="#intro-msg-3" height="0.7" width="6" visibiity="false" opacity="0" color="white" position=".12 1 -6">
-                <a-animation attribute="visible" begin="20000" to="true"></a-animation>
-                <a-animation attribute="opacity" from="0" to="1" begin="20000" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="25000" dur="5000"></a-animation>
-                <a-animation attribute="visible" begin="30000" to="false"></a-animation>
+            <a-plane src="#intro-msg-3" height="0.7" width="6" opacity="0" color="white" position=".12 1 -6">
+                <a-animation attribute="visible" delay="20000" to="true"></a-animation>
+                <a-animation attribute="opacity" from="0" to="1" delay="20000" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="25000" dur="5000"></a-animation>
+                <a-animation attribute="visible" delay="30000" to="false"></a-animation>
             </a-plane>
-            <a-plane src="#poster" opacity="0" visibility="false" width="5" height="2.8" position="0 0 -3">
-                <a-animation attribute="opacity" from="0" to="1" begin="30000" dur="5000"></a-animation>
-                <a-animation attribute="opacity" from="1" to="0" begin="35000" dur="5000"></a-animation>
-                <a-animation id="start" attribute="visible" begin="40000" to="false"></a-animation>
+            <a-plane src="#poster" opacity="0" width="5" height="2.8" position="0 0 -3">
+                <a-animation attribute="opacity" from="0" to="1" delay="30000" dur="5000"></a-animation>
+                <a-animation attribute="opacity" from="1" to="0" delay="35000" dur="5000"></a-animation>
+                <a-animation id="start" attribute="visible" delay="40000" to="false"></a-animation>
             </a-plane>
             <!-- intro end -->
+            <a-plane id="finalCredits" src="#credits" visible="false" width="5" height="2.8" position="0 0 -100"></a-plane>
         </a-camera>
 
         <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false"></a-sphere>
-        <!-- <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #video-2" side="double"></a-sphere> -->
-        <a-sphere position="0 2 -100" radius="5" material="shader:video; src:url(video/video-2.mp4);" side="double" visible="false"></a-sphere>
-
-        <!-- <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;"></a-entity> -->
+        <a-sphere class="is-video" position="0 2 -100" radius="5" material="shader:video;src:#video-2;side:double;" side="double" visible="false"></a-sphere>
 
         <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif);" gif=""></a-entity>
 
@@ -165,8 +161,6 @@
         <!-- elements scene 5 -->
         <!-- ... -->
 
-        <a-entity id="box" geometry="primitive:sphere;radius:.25;" position="0 1 -2" material="color:pink;"></a-entity>
-
     </a-scene>
 
     <script>
@@ -176,45 +170,38 @@
 
         var assets = {
             escene1: {
-                material: 'img',
+                esceneBgMaterial: 'img',
                 esceneBg: '#img-1',
                 esceneSound: '#audio-1',
                 actionImg: 'gif-1',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene2: {
-                material: 'video',
-                esceneBg: 'video/video-2.mp4',
+                esceneBgMaterial: 'video',
+                esceneBg: '#video-2',
                 esceneSound: '#audio-2',
                 actionImg: 'gif-2',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene3: {
-                material: 'video',
-                esceneBg: 'video/video-3.mp4',
+                esceneBgMaterial: 'video',
+                esceneBg: '#video-3',
                 esceneSound: '#audio-3',
                 actionImg: 'gif-3',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene4: {
-                material: 'img',
+                esceneBgMaterial: 'img',
                 esceneBg: '#img-4',
                 esceneSound: '#audio-4',
                 actionImg: 'gif-4',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene5: {
-                material: 'img',
+                esceneBgMaterial: 'img',
                 esceneBg: '#img-5',
                 esceneSound: '#audio-5',
                 actionImg: 'gif-5',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            escene6: {
-                material: 'img',
-                esceneBg: '',
-                esceneSound: '',
-                actionImg: '#credits',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             key: function(n) {
@@ -224,18 +211,16 @@
 
         var indexLastScene = 4;
         var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="1">';
+        var endAnimation = '<a-animation attribute="opacity" from="1" to="0" delay="3000" dur="3000"></a-animation>';
 
         // APP INIT
         (function() {
             console.log('app init');
-            // console.log('you are in escene number: ' + (currentScene + 1));
-            document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:url(video/video-2.mp4);');
         })();
 
         function init() {
             console.log('you are in escene number: ' + (currentScene + 1));
-            // document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: assets.key(1).esceneBg });
-            document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:url(video/video-2.mp4);');
+
             document.querySelectorAll('a-sphere')[0].setAttribute('visible', 'true');
             document.querySelectorAll('a-sphere')[1].setAttribute('visible', 'true');
             document.querySelector('#sound a-entity').components.sound.playSound();
@@ -245,36 +230,39 @@
         function enableNext() {
 
             if (currentScene > 0 && currentScene < indexLastScene) {
-                console.log('currentScene > 0 && currentScene < indexLastScene');
-
-                if( assets.key(currentScene + 1).material === 'video' ){
-                    console.log('***** entro en 1 *****');
-                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:url(' + assets.key(currentScene + 1).esceneBg +');' );
-                    togglePlayback();
+                if( assets.key(currentScene + 1).esceneBgMaterial == 'video' ){
+                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:' + assets.key(currentScene + 1).esceneBg + '; side:double;' );
+                    document.querySelector('a-sphere:not(.sphereActive)').classList.add("is-video");
                 } else {
-                    console.log('***** entro en 2 *****');
-                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:' + assets.key(currentScene + 1).esceneBg );
+                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:flat; src:' + assets.key(currentScene + 1).esceneBg );
+                    document.querySelector('a-sphere:not(.sphereActive)').classList.remove("is-video");
                 }
-
             }
 
-            if (currentScene < indexLastScene) {
-                console.log('currentScene < indexLastScene');
-                // document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', { src: assets.key(currentScene + 1).esceneBg });
+            action.setAttribute('position', { x: assets.key(currentScene).actionPosition.x, y: assets.key(currentScene).actionPosition.y, z: assets.key(currentScene).actionPosition.z });
 
-                action.setAttribute('position', { x: assets.key(currentScene).actionPosition.x, y: assets.key(currentScene).actionPosition.y, z: assets.key(currentScene).actionPosition.z });
+            if (currentScene < indexLastScene) {
                 ++currentScene;
                 console.log('enable go to escene number: ' + (currentScene + 1));
             } else {
                 console.log('end');
+
+                action.onmouseenter = function (e) {
+                  trigger.innerHTML = '';
+                };
+
+                finalCredits.setAttribute('visible', 'true');
+                finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
+                document.querySelector('.sphereActive').innerHTML = endAnimation;
+                document.querySelector('.sphereActive').addEventListener('animationend', function(){
+                    action.setAttribute('visible', 'false');
+                }, false);
             }
         }
 
         // GO TO NEXT ESCENE
         function goNextScene() {
             console.log('you are in escene number: ' + (currentScene + 1));
-            console.log('----------------------');
-            console.log('el material es: ' + assets.key(currentScene).esceneBg);
 
             document.querySelectorAll('a-sphere')[0].classList.toggle("sphereActive");
             document.querySelectorAll('a-sphere')[1].classList.toggle("sphereActive");
@@ -285,23 +273,24 @@
             document.querySelector('a-sphere:not(.sphereActive)').setAttribute('position', { x: 0, y: 2, z: 100 });
             document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
 
-
-            // if( assets.key(currentScene).material == 'video' ){
-            //     document.querySelector('.sphereActive').setAttribute('material', 'shader:video; src:url(' + assets.key(currentScene).esceneBg +');' );
-            //     togglePlayback();
-            // } else {
-            //     document.querySelector('.sphereActive').setAttribute('material', 'src:' + assets.key(currentScene).esceneBg );
-            // }
-            // document.querySelector('.sphereActive').setAttribute('material', { src: assets.key(currentScene).esceneBg });
-
             document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneSound });
             document.querySelector('#sound a-entity').components.sound.playSound();
+
+            if( currentScene == 1 ) {
+                togglePlayback();
+            }
+
+            if( currentScene == 2 ) {
+                togglePlayback();
+                togglePlayback();
+            }
+
             action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
         }
 
-        // TOGLE PLAY TEXTURE
+        //TOGLE PLAY TEXTURE
         function togglePlayback() {
-          var el = document.querySelector('a-sphere:not(.sphereActive)');
+          var el = document.querySelector('.is-video');
           var material = Object.assign({}, el.getAttribute('material'));
           material.pause = !material.pause;
           el.setAttribute('material', material);
@@ -310,11 +299,15 @@
         //EVENTS
         start.addEventListener('animationend', init, false);
         sound.addEventListener('sound-ended', enableNext, false);
-        // action.addEventListener('click', goNextScene, false);
         trigger.addEventListener('animationend', goNextScene, false);
 
         preloaderModal.querySelector('button').addEventListener('click', function(){
+            document.querySelector('#video-2').play();
+            document.querySelector('#video-2').pause();
+            document.querySelector('#video-3').play();
+            document.querySelector('#video-3').pause();
             togglePlayback();
+
         }, false);
 
         action.onmouseenter = function (e) {
@@ -324,10 +317,6 @@
         action.onmouseleave = function (e) {
           trigger.innerHTML = '';
           trigger.setAttribute('width', 0);
-        };
-
-        box.onmouseenter = function (e) {
-            togglePlayback();
         };
 
     </script>
