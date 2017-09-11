@@ -6,7 +6,6 @@
     <title>smile</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-awesome-4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="css/style.css" />
 
     <script src="js/jquery.min.js"></script>
@@ -15,7 +14,6 @@
     <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
 
     <script src="js/aframe-gif-shader.min.js"></script>
-    <script src="js/aframe-gif-component.min.js"></script>
 
     <script src="js/aframe-vid-shader.min.js"></script>
 
@@ -66,23 +64,28 @@
             <img id="poster" src="img/poster.jpg" crossorigin="anonymous" preload="true">
 
             <img   id="img-1" src="img/img-1.jpg" crossorigin="anonymous" preload="true">
-            <audio id="audio-1" src="audio/audio-1.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="voice-1" src="audio/voice-1.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="sound-1" src="audio/sound-1.aac" crossorigin="anonymous" preload="true"></audio>
             <img   id="gif-1" src="img/gif-1.gif" crossorigin="anonymous" preload="true">
 
             <video id="video-2" src="video/video-2.mp4" loop="true" crossorigin="anonymous" preload="true"></video>
-            <audio id="audio-2" src="audio/audio-2.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="voice-2" src="audio/voice-2.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="sound-2" src="audio/sound-2.aac" crossorigin="anonymous" preload="true"></audio>
             <img   id="gif-2" src="img/gif-2.gif" crossorigin="anonymous" preload="true">
 
             <video id="video-3" src="video/video-3.mp4" loop="true" crossorigin="anonymous" preload="true"></video>
-            <audio id="audio-3" src="audio/audio-3.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="voice-3" src="audio/voice-3.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="sound-3" src="audio/sound-3.aac" crossorigin="anonymous" preload="true"></audio>
             <img   id="gif-3" src="img/gif-3.gif" crossorigin="anonymous" preload="true">
 
             <img   id="img-4" src="img/img-4.jpg" crossorigin="anonymous" preload="true">
-            <audio id="audio-4" src="audio/audio-4.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="voice-4" src="audio/voice-4.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="sound-4" src="audio/sound-4.aac" crossorigin="anonymous" preload="true"></audio>
             <img   id="gif-4" src="img/gif-4.gif" crossorigin="anonymous" preload="true">
 
             <img   id="img-5" src="img/img-5.jpg" crossorigin="anonymous" preload="true">
-            <audio id="audio-5" src="audio/audio-5.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="voice-5" src="audio/voice-5.aac" crossorigin="anonymous" preload="true"></audio>
+            <audio id="sound-5" src="audio/sound-5.aac" crossorigin="anonymous" preload="true"></audio>
             <img   id="gif-5" src="img/gif-5.gif" crossorigin="anonymous" preload="true">
 
             <img   id="credits" src="img/credits.jpg" crossorigin="anonymous" preload="true">
@@ -93,7 +96,7 @@
 
         <a-camera wasd-controls-enabled="true">
             <a-cursor id="cursor" color="red"></a-cursor>
-            <a-plane id="trigger" width="0" height=".01" position="0 -0.25 -.5" color="red"></a-plane>
+            <a-plane id="trigger" width="0" height=".007" position="0 -0.25 -.5" color="red"></a-plane>
             <!-- intro -->
             <a-image src="#headphones" opacity="0" position="0 0 -6">
                 <a-animation attribute="opacity" from="0" to="1" delay="0" dur="5000"></a-animation>
@@ -132,22 +135,22 @@
                 <a-animation attribute="opacity" from="1" to="0" delay="25000" dur="5000"></a-animation>
                 <a-animation attribute="visible" delay="30000" to="false"></a-animation>
             </a-plane>
-            <a-plane src="#poster" opacity="0" width="5" height="2.8" position="0 0 -3">
+            <a-plane src="#poster" opacity="0" width="2.8" height="2.8" position="0 0 -3">
                 <a-animation attribute="opacity" from="0" to="1" delay="30000" dur="5000"></a-animation>
                 <a-animation attribute="opacity" from="1" to="0" delay="35000" dur="5000"></a-animation>
                 <a-animation id="start" attribute="visible" delay="40000" to="false"></a-animation>
             </a-plane>
             <!-- intro end -->
-            <a-plane id="finalCredits" src="#credits" visible="false" width="5" height="2.8" position="0 0 -100"></a-plane>
+            <a-plane id="finalCredits" src="#credits" visible="false" width="3" height="3" position="0 0 -100"></a-plane>
         </a-camera>
 
-        <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false"></a-sphere>
-        <a-sphere class="is-video" position="0 2 -100" radius="5" material="shader:video;src:#video-2;side:double;" side="double" visible="false"></a-sphere>
+        <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false" sound="src:#sound-1; autoplay:false; loop:true;"></a-sphere>
+        <a-sphere class="is-video" position="0 2 -100" radius="5" material="shader:video; src:#video-2; side:double;" side="double" visible="false" sound="src:#sound-2; autoplay:false; loop:true;"></a-sphere>
 
-        <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif);" gif=""></a-entity>
+        <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif); transparent:true; opacity:1;"></a-entity>
 
         <a-entity id="sound" position="0 1.5 0">
-            <a-entity sound="src: #audio-1; volume: 3;"></a-entity>
+            <a-entity sound="src: #voice-1; volume: 3;"></a-entity>
         </a-entity>
 
         <!-- elements scene 1 -->
@@ -172,35 +175,40 @@
             escene1: {
                 esceneBgMaterial: 'img',
                 esceneBg: '#img-1',
-                esceneSound: '#audio-1',
+                esceneVoice: '#voice-1',
+                esceneSound: '#sound-1',
                 actionImg: 'gif-1',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene2: {
                 esceneBgMaterial: 'video',
                 esceneBg: '#video-2',
-                esceneSound: '#audio-2',
+                esceneVoice: '#voice-2',
+                esceneSound: '#sound-2',
                 actionImg: 'gif-2',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene3: {
                 esceneBgMaterial: 'video',
                 esceneBg: '#video-3',
-                esceneSound: '#audio-3',
+                esceneVoice: '#voice-3',
+                esceneSound: '#sound-3',
                 actionImg: 'gif-3',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene4: {
                 esceneBgMaterial: 'img',
                 esceneBg: '#img-4',
-                esceneSound: '#audio-4',
+                esceneVoice: '#voice-4',
+                esceneSound: '#sound-4',
                 actionImg: 'gif-4',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
             escene5: {
                 esceneBgMaterial: 'img',
                 esceneBg: '#img-5',
-                esceneSound: '#audio-5',
+                esceneVoice: '#voice-5',
+                esceneSound: '#sound-5',
                 actionImg: 'gif-5',
                 actionPosition: { x: 0, y: 1.5, z: -1 }
             },
@@ -210,7 +218,7 @@
         };
 
         var indexLastScene = 4;
-        var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="1">';
+        var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="0.5">';
         var endAnimation = '<a-animation attribute="opacity" from="1" to="0" delay="3000" dur="3000"></a-animation>';
 
         // APP INIT
@@ -223,6 +231,7 @@
 
             document.querySelectorAll('a-sphere')[0].setAttribute('visible', 'true');
             document.querySelectorAll('a-sphere')[1].setAttribute('visible', 'true');
+            document.querySelector('.sphereActive').components.sound.playSound();
             document.querySelector('#sound a-entity').components.sound.playSound();
         }
 
@@ -251,11 +260,11 @@
                   trigger.innerHTML = '';
                 };
 
-                finalCredits.setAttribute('visible', 'true');
-                finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
                 document.querySelector('.sphereActive').innerHTML = endAnimation;
                 document.querySelector('.sphereActive').addEventListener('animationend', function(){
                     action.setAttribute('visible', 'false');
+                    finalCredits.setAttribute('visible', 'true');
+                    finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
                 }, false);
             }
         }
@@ -273,7 +282,11 @@
             document.querySelector('a-sphere:not(.sphereActive)').setAttribute('position', { x: 0, y: 2, z: 100 });
             document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
 
-            document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneSound });
+            if( currentScene > 4 ) document.querySelector('a-sphere:not(.sphereActive)').components.sound.stopSound();
+            document.querySelector('.sphereActive').setAttribute('sound', { src: assets.key(currentScene).esceneSound });
+            document.querySelector('.sphereActive').components.sound.playSound();
+
+            document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneVoice });
             document.querySelector('#sound a-entity').components.sound.playSound();
 
             if( currentScene == 1 ) {
