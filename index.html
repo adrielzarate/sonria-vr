@@ -179,205 +179,195 @@
 
     <script>
 
-        //SETTINGS
-        var currentScene = 0;
-
-        var assets = {
-            escene1: {
-                esceneBgMaterial: 'img',
-                esceneBg: '#img-1',
-                esceneVoice: '#voice-1',
-                esceneSound: '#sound-1',
-                actionImg: 'gif-1',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            escene2: {
-                esceneBgMaterial: 'video',
-                esceneBg: '#video-2',
-                esceneVoice: '#voice-2',
-                esceneSound: '#sound-2',
-                actionImg: 'gif-2',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            escene3: {
-                esceneBgMaterial: 'video',
-                esceneBg: '#video-3',
-                esceneVoice: '#voice-3',
-                esceneSound: '#sound-3',
-                actionImg: 'gif-3',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            escene4: {
-                esceneBgMaterial: 'img',
-                esceneBg: '#img-4',
-                esceneVoice: '#voice-4',
-                esceneSound: '#sound-4',
-                actionImg: 'gif-4',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            escene5: {
-                esceneBgMaterial: 'img',
-                esceneBg: '#img-5',
-                esceneVoice: '#voice-5',
-                esceneSound: '#sound-5',
-                actionImg: 'gif-5',
-                actionPosition: { x: 0, y: 1.5, z: -1 }
-            },
-            key: function(n) {
-                return this[Object.keys(this)[n]];
-            }
-        };
-
-        var indexLastScene = 4;
-        var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="0.5">';
-        var endAnimation = '<a-animation attribute="opacity" from="1" to="0" delay="3000" dur="3000"></a-animation>';
-
         // APP INIT
         (function() {
-            console.log('app init');
-        })();
 
-        function init() {
-            console.log('you are in escene number: ' + (currentScene + 1));
+            console.log('app start');
 
-            document.querySelectorAll('a-sphere')[0].setAttribute('visible', 'true');
-            document.querySelectorAll('a-sphere')[1].setAttribute('visible', 'true');
-            document.querySelector('.sphereActive').components.sound.playSound();
-            document.querySelector('#sound a-entity').components.sound.playSound();
-        }
+            //SETTINGS
+            var currentScene = 0;
 
-        // ENABLE GO TO NEXT ESCENE
-        function enableNext() {
+            var assets = {
+                escene1: {
+                    esceneBgMaterial: 'img',
+                    esceneBg: '#img-1',
+                    esceneVoice: '#voice-1',
+                    esceneSound: '#sound-1',
+                    actionImg: 'gif-1',
+                    actionPosition: { x: 0, y: 1.5, z: -1 }
+                },
+                escene2: {
+                    esceneBgMaterial: 'video',
+                    esceneBg: '#video-2',
+                    esceneVoice: '#voice-2',
+                    esceneSound: '#sound-2',
+                    actionImg: 'gif-2',
+                    actionPosition: { x: 0, y: 1.5, z: -1 }
+                },
+                escene3: {
+                    esceneBgMaterial: 'video',
+                    esceneBg: '#video-3',
+                    esceneVoice: '#voice-3',
+                    esceneSound: '#sound-3',
+                    actionImg: 'gif-3',
+                    actionPosition: { x: 0, y: 1.5, z: -1 }
+                },
+                escene4: {
+                    esceneBgMaterial: 'img',
+                    esceneBg: '#img-4',
+                    esceneVoice: '#voice-4',
+                    esceneSound: '#sound-4',
+                    actionImg: 'gif-4',
+                    actionPosition: { x: 0, y: 1.5, z: -1 }
+                },
+                escene5: {
+                    esceneBgMaterial: 'img',
+                    esceneBg: '#img-5',
+                    esceneVoice: '#voice-5',
+                    esceneSound: '#sound-5',
+                    actionImg: 'gif-5',
+                    actionPosition: { x: 0, y: 1.5, z: -1 }
+                },
+                key: function(n) {
+                    return this[Object.keys(this)[n]];
+                }
+            };
 
-            if (currentScene > 0 && currentScene < indexLastScene) {
-                if( assets.key(currentScene + 1).esceneBgMaterial == 'video' ){
-                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:video; src:' + assets.key(currentScene + 1).esceneBg + '; side:double;' );
-                    document.querySelector('a-sphere:not(.sphereActive)').classList.add("is-video");
+            var indexLastScene = 4;
+            var triggerAnimation = '<a-animation attribute="width" dur="3000" easing="ease-out" from="0" to="0.5">';
+            var endAnimation = '<a-animation attribute="opacity" from="1" to="0" delay="3000" dur="3000"></a-animation>';
+
+            var sphere = document.querySelectorAll('a-sphere');
+            var sphereActive = document.querySelector('.sphereActive');
+            var sphereNoActive = document.querySelector('a-sphere:not(.sphereActive)');
+            var voice = document.querySelector('#sound a-entity');
+            var es4Screen = document.querySelector('.es4-screen');
+            var video2 = document.querySelector('#video-2');
+            var video3 = document.querySelector('#video-3');
+
+            function init() {
+                console.log('you are in escene number: ' + (currentScene + 1));
+
+                sphere[0].setAttribute('visible', 'true');
+                sphere[1].setAttribute('visible', 'true');
+                sphereActive.components.sound.playSound();
+                voice.components.sound.playSound();
+            }
+
+            // ENABLE GO TO NEXT ESCENE
+            function enableNext() {
+
+                if (currentScene > 0 && currentScene < indexLastScene) {
+                    if( assets.key(currentScene + 1).esceneBgMaterial == 'video' ){
+                        sphereNoActive.setAttribute('material', 'shader:video; src:' + assets.key(currentScene + 1).esceneBg + '; side:double;' );
+                        sphereNoActive.classList.add("is-video");
+                    } else {
+                        sphereNoActive.setAttribute('material', 'shader:flat; src:' + assets.key(currentScene + 1).esceneBg );
+                        sphereNoActive.classList.remove("is-video");
+                    }
+                }
+
+                action.setAttribute('position', { x: assets.key(currentScene).actionPosition.x, y: assets.key(currentScene).actionPosition.y, z: assets.key(currentScene).actionPosition.z });
+
+                if (currentScene < indexLastScene) {
+                    ++currentScene;
+                    console.log('enable go to escene number: ' + (currentScene + 1));
                 } else {
-                    document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', 'shader:flat; src:' + assets.key(currentScene + 1).esceneBg );
-                    document.querySelector('a-sphere:not(.sphereActive)').classList.remove("is-video");
+                    console.log('end');
+
+                    action.onmouseenter = function (e) {
+                      trigger.innerHTML = '';
+                    };
+
+                    sphereActive.innerHTML = endAnimation;
+                    sphereActive.addEventListener('animationend', function(){
+                        action.setAttribute('visible', 'false');
+                        finalCredits.setAttribute('visible', 'true');
+                        finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
+                    }, false);
                 }
             }
 
-            action.setAttribute('position', { x: assets.key(currentScene).actionPosition.x, y: assets.key(currentScene).actionPosition.y, z: assets.key(currentScene).actionPosition.z });
+            // GO TO NEXT ESCENE
+            function goNextScene() {
+                console.log('you are in escene number: ' + (currentScene + 1));
 
-            if (currentScene < indexLastScene) {
-                ++currentScene;
-                console.log('enable go to escene number: ' + (currentScene + 1));
-            } else {
-                console.log('end');
+                sphere[0].classList.toggle("sphereActive");
+                sphere[1].classList.toggle("sphereActive");
 
-                action.onmouseenter = function (e) {
-                  trigger.innerHTML = '';
-                };
+                sphereActive = document.querySelector('.sphereActive');
+                sphereNoActive = document.querySelector('a-sphere:not(.sphereActive)');
 
-                document.querySelector('.sphereActive').innerHTML = endAnimation;
-                document.querySelector('.sphereActive').addEventListener('animationend', function(){
-                	// this.parentNode.removeChild(this);
-                    action.setAttribute('visible', 'false');
-                    finalCredits.setAttribute('visible', 'true');
-                    finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
-                }, false);
+                action.setAttribute('position', { y: -100 });
+
+                sphereNoActive.setAttribute('material', '');
+                sphereNoActive.setAttribute('position', { x: 0, y: 2, z: 100 });
+                sphereActive.setAttribute('position', { x: 0, y: 2, z: 0 });
+
+                if( currentScene > 4 ) {
+                    sphereNoActive.components.sound.stopSound();
+                }
+
+                sphereActive.setAttribute('sound', { src: assets.key(currentScene).esceneSound });
+                sphereActive.components.sound.playSound();
+
+                voice.setAttribute('sound', { src: assets.key(currentScene).esceneVoice });
+                voice.components.sound.playSound();
+
+                switch(currentScene) {
+                    case 1:
+                        togglePlayback();
+                        break;
+                    case 2:
+                        togglePlayback();
+                        togglePlayback();
+                        break;
+                    case 3:
+                        es4Screen.setAttribute('visible','true');
+                        break;
+                    case 4:
+                        es4Screen.setAttribute('visible','false');
+                        var es5Particle = document.querySelectorAll('.es5-particle');
+                        for (var i = 0; i < es5Particle.length; i++) {
+                            es5Particle[i].setAttribute('visible','true');
+                        }
+                        break;
+                }
+
+                action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
             }
-        }
 
-        // GO TO NEXT ESCENE
-        function goNextScene() {
-            console.log('you are in escene number: ' + (currentScene + 1));
-
-            document.querySelectorAll('a-sphere')[0].classList.toggle("sphereActive");
-            document.querySelectorAll('a-sphere')[1].classList.toggle("sphereActive");
-
-            action.setAttribute('position', { y: -100 });
-
-            document.querySelector('a-sphere:not(.sphereActive)').setAttribute('material', '');
-            document.querySelector('a-sphere:not(.sphereActive)').setAttribute('position', { x: 0, y: 2, z: 100 });
-            document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
-
-            if( currentScene > 4 ) {
-            	document.querySelector('a-sphere:not(.sphereActive)').components.sound.stopSound();
+            //TOGLE PLAY TEXTURE
+            function togglePlayback() {
+              var el = document.querySelector('.is-video');
+              var material = Object.assign({}, el.getAttribute('material'));
+              material.pause = !material.pause;
+              el.setAttribute('material', material);
             }
 
-            document.querySelector('.sphereActive').setAttribute('sound', { src: assets.key(currentScene).esceneSound });
-            document.querySelector('.sphereActive').components.sound.playSound();
+            //EVENTS
+            start.addEventListener('animationend', init, false);
+            sound.addEventListener('sound-ended', enableNext, false);
+            trigger.addEventListener('animationend', goNextScene, false);
 
-            document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneVoice });
-            document.querySelector('#sound a-entity').components.sound.playSound();
+            preloaderModal.querySelector('button').addEventListener('click', function(){
+                video2.play();
+                video2.pause();
+                video3.play();
+                video3.pause();
+                togglePlayback();
+            }, false);
 
-   //          if( currentScene == 1 ) {
-   //              togglePlayback();
-   //          }
+            action.onmouseenter = function (e) {
+              trigger.innerHTML = triggerAnimation;
+            };
 
-   //          if( currentScene == 2 ) {
-   //              togglePlayback();
-   //              togglePlayback();
-   //          }
+            action.onmouseleave = function (e) {
+              trigger.innerHTML = '';
+              trigger.setAttribute('width', 0);
+            };
 
-   //          if( currentScene == 3 ) {
-   //          	document.querySelector('.es4-screen').setAttribute('visible','true');
-			// }
-
-   //          if( currentScene == 4 ) {
-   //          	document.querySelector('.es4-screen').setAttribute('visible','false');
-			// 	var es5Particle = document.querySelectorAll('.es5-particle');
-			// 	for (var i = 0; i < es5Particle.length; i++) {
-			// 	    es5Particle[i].setAttribute('visible','true');
-			// 	}
-   //          }
-
-			switch(currentScene) {
-			    case 1:
-			        togglePlayback();
-			        break;
-			    case 2:
-					togglePlayback();
-                	togglePlayback();
-			        break;
-			    case 3:
-			        document.querySelector('.es4-screen').setAttribute('visible','true');
-			        break;
-			    case 4:
-	            	document.querySelector('.es4-screen').setAttribute('visible','false');
-					var es5Particle = document.querySelectorAll('.es5-particle');
-					for (var i = 0; i < es5Particle.length; i++) {
-					    es5Particle[i].setAttribute('visible','true');
-					}
-			        break;
-			}
-
-            action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
-        }
-
-        //TOGLE PLAY TEXTURE
-        function togglePlayback() {
-          var el = document.querySelector('.is-video');
-          var material = Object.assign({}, el.getAttribute('material'));
-          material.pause = !material.pause;
-          el.setAttribute('material', material);
-        }
-
-        //EVENTS
-        start.addEventListener('animationend', init, false);
-        sound.addEventListener('sound-ended', enableNext, false);
-        trigger.addEventListener('animationend', goNextScene, false);
-
-        preloaderModal.querySelector('button').addEventListener('click', function(){
-            document.querySelector('#video-2').play();
-            document.querySelector('#video-2').pause();
-            document.querySelector('#video-3').play();
-            document.querySelector('#video-3').pause();
-            togglePlayback();
-
-        }, false);
-
-        action.onmouseenter = function (e) {
-          trigger.innerHTML = triggerAnimation;
-        };
-
-        action.onmouseleave = function (e) {
-          trigger.innerHTML = '';
-          trigger.setAttribute('width', 0);
-        };
+        })();
 
     </script>
 </body>
