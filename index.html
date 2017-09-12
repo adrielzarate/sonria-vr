@@ -17,6 +17,8 @@
 
     <script src="js/aframe-vid-shader.min.js"></script>
 
+    <script src="js/aframe-particle-system-component.min.js"></script>
+
     <script src="js/aframe-preloader-component.min.js"></script>
 
 </head>
@@ -96,7 +98,7 @@
 
         <a-camera wasd-controls-enabled="true">
             <a-cursor id="cursor" color="red"></a-cursor>
-            <a-plane id="trigger" width="0" height=".007" position="0 -0.25 -.5" color="red"></a-plane>
+            <a-plane id="trigger" width="0" height=".007" position="0 -0.25 -.5" color="#0afe55"></a-plane>
             <!-- intro -->
             <a-image src="#headphones" opacity="0" position="0 0 -6">
                 <a-animation attribute="opacity" from="0" to="1" delay="0" dur="5000"></a-animation>
@@ -144,10 +146,10 @@
             <a-plane id="finalCredits" src="#credits" visible="false" width="3" height="3" position="0 0 -100"></a-plane>
         </a-camera>
 
-        <a-sphere class="sphereActive" position="0 2 0" radius="5" material="src: #img-1" side="double" visible="false" sound="src:#sound-1; autoplay:false; loop:true;"></a-sphere>
-        <a-sphere class="is-video" position="0 2 -100" radius="5" material="shader:video; src:#video-2; side:double;" side="double" visible="false" sound="src:#sound-2; autoplay:false; loop:true;"></a-sphere>
+        <a-sphere class="sphereActive" position="0 2 0" radius="50" material="src: #img-1" rotation="0 180 0" side="double" visible="false" sound="src:#sound-1; autoplay:false; loop:true; volume:4;"></a-sphere>
+        <a-sphere class="is-video" position="0 2 -100" radius="50" material="shader:video; src:#video-2; side:double;" rotation="0 180 0" side="double" visible="false" sound="src:#sound-2; autoplay:false; loop:true; volume:4;"></a-sphere>
 
-        <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif); transparent:true; opacity:1;"></a-entity>
+        <a-entity id="action" geometry="primitive:plane;" position="0 -100 0" material="shader:gif; src:url(img/gif-1.gif); transparent:true; opacity:.7;"></a-entity>
 
         <a-entity id="sound" position="0 1.5 0">
             <a-entity sound="src: #voice-1; volume: 3;"></a-entity>
@@ -155,14 +157,23 @@
 
         <!-- elements scene 1 -->
         <!-- ... -->
+
         <!-- elements scene 2 -->
         <!-- ... -->
+
         <!-- elements scene 3 -->
         <!-- ... -->
+
         <!-- elements scene 4 -->
-        <!-- ... -->
+        <a-entity class="es4-screen" position="-14.5 1.2 14.7" rotation="0 130 0" geometry="primitive:plane; height: 12.5; width: 8" material="shader:gif;src:url(img/es4-screen.gif);opacity:1" visible="false"></a-entity>
+
         <!-- elements scene 5 -->
-        <!-- ... -->
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:snow; texture:img/0.png; size:3;" visible="false"></a-entity>
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:snow; texture:img/1.png; size:3;" visible="false"></a-entity>
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:snow; texture:img/0.png; size:2;" visible="false"></a-entity>
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:snow; texture:img/1.png; size:2;" visible="false"></a-entity>
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:rain; texture:img/0.png; size:2;" visible="false"></a-entity>
+		<a-entity class="es5-particle" position="0 2.25 0" particle-system="preset:rain; texture:img/1.png; size:2;" visible="false"></a-entity>
 
     </a-scene>
 
@@ -262,6 +273,7 @@
 
                 document.querySelector('.sphereActive').innerHTML = endAnimation;
                 document.querySelector('.sphereActive').addEventListener('animationend', function(){
+                	// this.parentNode.removeChild(this);
                     action.setAttribute('visible', 'false');
                     finalCredits.setAttribute('visible', 'true');
                     finalCredits.setAttribute('position', { x: 0, y: 0, z: -6 });
@@ -282,21 +294,56 @@
             document.querySelector('a-sphere:not(.sphereActive)').setAttribute('position', { x: 0, y: 2, z: 100 });
             document.querySelector('.sphereActive').setAttribute('position', { x: 0, y: 2, z: 0 });
 
-            if( currentScene > 4 ) document.querySelector('a-sphere:not(.sphereActive)').components.sound.stopSound();
+            if( currentScene > 4 ) {
+            	document.querySelector('a-sphere:not(.sphereActive)').components.sound.stopSound();
+            }
+
             document.querySelector('.sphereActive').setAttribute('sound', { src: assets.key(currentScene).esceneSound });
             document.querySelector('.sphereActive').components.sound.playSound();
 
             document.querySelector('#sound a-entity').setAttribute('sound', { src: assets.key(currentScene).esceneVoice });
             document.querySelector('#sound a-entity').components.sound.playSound();
 
-            if( currentScene == 1 ) {
-                togglePlayback();
-            }
+   //          if( currentScene == 1 ) {
+   //              togglePlayback();
+   //          }
 
-            if( currentScene == 2 ) {
-                togglePlayback();
-                togglePlayback();
-            }
+   //          if( currentScene == 2 ) {
+   //              togglePlayback();
+   //              togglePlayback();
+   //          }
+
+   //          if( currentScene == 3 ) {
+   //          	document.querySelector('.es4-screen').setAttribute('visible','true');
+			// }
+
+   //          if( currentScene == 4 ) {
+   //          	document.querySelector('.es4-screen').setAttribute('visible','false');
+			// 	var es5Particle = document.querySelectorAll('.es5-particle');
+			// 	for (var i = 0; i < es5Particle.length; i++) {
+			// 	    es5Particle[i].setAttribute('visible','true');
+			// 	}
+   //          }
+
+			switch(currentScene) {
+			    case 1:
+			        togglePlayback();
+			        break;
+			    case 2:
+					togglePlayback();
+                	togglePlayback();
+			        break;
+			    case 3:
+			        document.querySelector('.es4-screen').setAttribute('visible','true');
+			        break;
+			    case 4:
+	            	document.querySelector('.es4-screen').setAttribute('visible','false');
+					var es5Particle = document.querySelectorAll('.es5-particle');
+					for (var i = 0; i < es5Particle.length; i++) {
+					    es5Particle[i].setAttribute('visible','true');
+					}
+			        break;
+			}
 
             action.setAttribute('material', { src: 'url(img/' + assets.key(currentScene).actionImg + '.gif);' });
         }
